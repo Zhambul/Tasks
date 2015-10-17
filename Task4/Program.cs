@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Task1
+namespace Task4
 {
     class Program
     {
@@ -11,9 +11,9 @@ namespace Task1
         static Random r = new Random();
         static object o = new object();
 
+
         static void Main()
         {
-            Console.WriteLine("Task 1");
             for (int i = 0; i < tables.Length; i++)
             {
                 tables[i] = 0;
@@ -27,9 +27,9 @@ namespace Task1
 
             while (true)
             {
-                Thread.Sleep(r.Next(3000,3500));
+                Thread.Sleep(r.Next(3000, 3500));
                 Thread thread = new Thread(Tr);
-                thread.Start(r.Next(0,9));
+                thread.Start(r.Next(0, 9));
             }
             Console.Read();
         }
@@ -39,7 +39,7 @@ namespace Task1
             int x = Convert.ToInt32(o);
             Alloc(x);
             ShowMemory();
-            Thread.Sleep(r.Next(5000,8000));
+            Thread.Sleep(r.Next(5000, 8000));
             Free(x);
         }
 
@@ -53,7 +53,7 @@ namespace Task1
 
                     for (int j = 0; j < cellMemory; j++)
                     {
-                        memory[i*100 + j] = x;
+                        memory[i * 100 + j] = x;
                     }
                     break;
                 }
@@ -87,7 +87,7 @@ namespace Task1
                     Console.WriteLine("Ячейка номер" + i + Environment.NewLine);
                     for (int j = 0; j < cellMemory; j++)
                     {
-                        if(j!= 0 && j%20 == 0) Console.Write(Environment.NewLine);
+                        if (j != 0 && j % 20 == 0) Console.Write(Environment.NewLine);
                         Console.Write(memory[i * 100 + j]);
                     }
                     Console.Write(Environment.NewLine);

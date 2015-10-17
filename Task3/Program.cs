@@ -10,6 +10,7 @@ namespace Task3
     {
         static void Main(string[] args)
         {
+            Console.Read();
         }
     }
 }
