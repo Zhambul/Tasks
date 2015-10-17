@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Task4
+namespace Task1
 {
     class Program
     {
