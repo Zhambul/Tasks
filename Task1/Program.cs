@@ -8,69 +8,43 @@ namespace Task1
         static int[] memory = new int[1000];
         static int[] tables = new int[10];
         static int cellMemory = 100;
-        static Random r = new Random();
-        static object o = new object();
+        static Random random = new Random();
+        static object lockObject = new object();
 
 
         static void Main()
         {
-            for (int i = 0; i < tables.Length; i++)
-            {
-                tables[i] = 0;
-            }
-
-            for (int i = 0; i < memory.Length; i++)
-            {
-                memory[i] = 0;
-            }
-
-
             while (true)
             {
-                Thread.Sleep(r.Next(3000, 3500));
+                Thread.Sleep(random.Next(100, 500));
                 Thread thread = new Thread(Tr);
-                thread.Start(r.Next(0, 9));
+                thread.Start(random.Next(1, 9));
             }
-            Console.Read();
         }
 
-        static void Tr(object o)
+        static void Tr(object value)
         {
-            int x = Convert.ToInt32(o);
-            Alloc(x);
+            int valueConvetred = Convert.ToInt32(value);
+            
+            Alloc(valueConvetred, 0);
+
             ShowMemory();
-            Thread.Sleep(r.Next(5000, 8000));
-            Free(x);
+            Thread.Sleep(random.Next(1500,2000));
+
+            Alloc(0, valueConvetred);
         }
 
-        static void Alloc(int x)
+        static void Alloc(int value, int checkValue)
         {
             for (int i = 0; i < tables.Length; i++)
             {
-                if (tables[i] == 0)
+                if (tables[i] == checkValue)
                 {
-                    tables[i] = x;
+                    tables[i] = value;
 
                     for (int j = 0; j < cellMemory; j++)
                     {
-                        memory[i * 100 + j] = x;
-                    }
-                    break;
-                }
-            }
-        }
-
-        static void Free(int x)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                if (tables[i] == x)
-                {
-                    tables[i] = 0;
-
-                    for (int j = 0; j < cellMemory; j++)
-                    {
-                        memory[i * 100 + j] = 0;
+                        memory[i * 100 + j] = value;
                     }
                     break;
                 }
@@ -79,18 +53,12 @@ namespace Task1
 
         static void ShowMemory()
         {
-            lock (o)
+            lock (lockObject)
             {
                 Console.Clear();
-                for (int i = 0; i < tables.Length; i++)
+                foreach (int t in memory)
                 {
-                    Console.WriteLine("Ячейка номер" + i + Environment.NewLine);
-                    for (int j = 0; j < cellMemory; j++)
-                    {
-                        if (j != 0 && j % 20 == 0) Console.Write(Environment.NewLine);
-                        Console.Write(memory[i * 100 + j]);
-                    }
-                    Console.Write(Environment.NewLine);
+                    Console.Write(t);
                 }
             }
 
