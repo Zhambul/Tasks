@@ -98,17 +98,15 @@ namespace Task3
 
         private static bool IsEnoughtSpace(Cell cell, int startIndex)
         {
-            bool isEnought = true;
-
             for (int sizeIndex = 0; sizeIndex < cell.Size; sizeIndex++)
             {
                 if (memory[startIndex + sizeIndex] != 0)
                 {
-                    isEnought = false;
+                    return false;
                 }
             }
 
-            return isEnought;
+            return true;
         }
 
         private static void ShowMemory()
